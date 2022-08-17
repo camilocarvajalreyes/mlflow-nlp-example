@@ -1,0 +1,15 @@
+artifact_uri: file:///home/camilo/ESO_internship/mlflow-nlp-example/mlruns/0/a81593d8c5484691a5eb8c982393a679/artifacts
+end_time: 1660766494575
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: a81593d8c5484691a5eb8c982393a679
+run_uuid: a81593d8c5484691a5eb8c982393a679
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1660766488234
+status: 3
+tags: []
+user_id: camilo
