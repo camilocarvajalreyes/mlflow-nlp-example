@@ -6,6 +6,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report
 from urllib.parse import urlparse
 import warnings
+import sys
 
 import mlflow
 import mlflow.sklearn
@@ -28,14 +29,20 @@ if __name__ == "__main__":
     # fitting NB
     with mlflow.start_run():
         # based on https://www.mlflow.org/docs/latest/tutorials-and-examples/tutorial.html
+        
+        # importing parameters in case they are passed as argument
+        min_count = int(sys.argv[1]) if len(sys.argv) > 1 else 10
+        alpha = float(sys.argv[2]) if len(sys.argv) > 2 else 0.2
+        print("Naive-Bayes model being trained with the following parameters")
+        print('\tmin cont: %s' % min_count)
+        print('\talpha: %s' % alpha)
+        
         # vectorisation
-        min_count = 10
         vectorizer = CountVectorizer(min_df=min_count)
         X_train_bow = vectorizer.fit_transform(df_us_train["tokenized_text"])
         X_test_bow = vectorizer.transform(df_us_test["tokenized_text"])
 
         # fitting classifier
-        alpha = 0.2
         clf = MultinomialNB(alpha=alpha)
         clf.fit(X_train_bow, df_us_train["label"])
 
@@ -46,10 +53,10 @@ if __name__ == "__main__":
         precision, recall, f1_score, accuracy = report['macro avg']['precision'], report['macro avg']['recall'], report['macro avg']['f1-score'], report['accuracy']
         # 'accuracy','macro f1','weighted f1','macro precision','weighted precision','macro recall','weighted recall'
         print("Results on test set:")
-        print('precision: %s' % precision)
-        print('recall: %s' % recall)
-        print('f1-score: %s' % f1_score)
-        print('accuracy: %s' % accuracy)
+        print('\tprecision: %s' % precision)
+        print('\trecall: %s' % recall)
+        print('\tf1-score: %s' % f1_score)
+        print('\taccuracy: %s' % accuracy)
 
         mlflow.log_param("alpha", alpha)
         mlflow.log_param("min_count", min_count)

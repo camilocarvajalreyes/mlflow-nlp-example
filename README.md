@@ -17,3 +17,9 @@ Run
 and go to
 
 http://localhost:5000/
+
+**Running and testing model with different parameters**
+
+```conda run -n env_name python naive-bayes/train.py <min_count> <alpha>```
+
+It will print metrics on the test set and will save the runs. Runs are available at `mlflow ui`.
