@@ -1,8 +1,9 @@
 artifact_uri: file:///home/camilo/ESO_internship/mlflow-nlp-example/mlruns/0/a81593d8c5484691a5eb8c982393a679/artifacts
+deleted_time: 1660767211266
 end_time: 1660766494575
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 name: ''
 run_id: a81593d8c5484691a5eb8c982393a679
 run_uuid: a81593d8c5484691a5eb8c982393a679
