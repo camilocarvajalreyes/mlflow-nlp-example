@@ -8,6 +8,13 @@ The models used in this repository were implemented for the course [CC5205 Data 
 
 ## Instructions
 
+**Install requirements for this example**
+
+```pip install requirements```
+
+Note that when deploying a model with conda, another conda env will be created based on library versions as detected by _mlflow_.
+
+
 **MLflow user interface for model comparison**
 
 Run
