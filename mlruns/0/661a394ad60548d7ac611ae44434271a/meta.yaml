@@ -1,0 +1,15 @@
+artifact_uri: file:///home/camilo/ESO_internship/mlflow-nlp-example/mlruns/0/661a394ad60548d7ac611ae44434271a/artifacts
+end_time: 1661016042363
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 661a394ad60548d7ac611ae44434271a
+run_uuid: 661a394ad60548d7ac611ae44434271a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1661016030612
+status: 3
+tags: []
+user_id: gsoto
