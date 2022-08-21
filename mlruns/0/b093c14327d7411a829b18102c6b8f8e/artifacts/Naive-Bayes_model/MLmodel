@@ -1,0 +1,12 @@
+artifact_path: Naive-Bayes_model
+flavors:
+  python_function:
+    cloudpickle_version: 2.1.0
+    env: conda.yaml
+    loader_module: mlflow.pyfunc.model
+    python_model: python_model.pkl
+    python_version: 3.10.4
+mlflow_version: 1.28.0
+model_uuid: f714158c349d41b0972d5aceb3da9e43
+run_id: b093c14327d7411a829b18102c6b8f8e
+utc_time_created: '2022-08-21 22:03:21.093413'
