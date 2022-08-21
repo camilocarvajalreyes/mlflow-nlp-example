@@ -4,12 +4,13 @@ from nltk.tokenize import TweetTokenizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report
-from urllib.parse import urlparse
 import warnings
 import sys
 
 import mlflow
 import mlflow.sklearn
+
+from flavor import NaiveBayesModelWrapper
 
 
 if __name__ == "__main__":
@@ -27,8 +28,9 @@ if __name__ == "__main__":
     df_us_test['tokenized_text'] = df_us_test['text'].str.lower().apply(lambda x: " ".join(tt.tokenize(x)))
 
     # fitting NB
-    with mlflow.start_run():
+    with mlflow.start_run(run_name='testing-custom-flavor'):
         # based on https://www.mlflow.org/docs/latest/tutorials-and-examples/tutorial.html
+        # and https://docs.databricks.com/_static/notebooks/mlflow/mlflow-end-to-end-example.html
         
         # importing parameters in case they are passed as argument
         min_count = int(sys.argv[1]) if len(sys.argv) > 1 else 10
@@ -66,15 +68,10 @@ if __name__ == "__main__":
         mlflow.log_metric("f1-score", f1_score)
         mlflow.log_metric("accuracy", accuracy)
 
-        tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+        wrappedModel = NaiveBayesModelWrapper(clf,tt.tokenize,vectorizer)
 
-        # Model registry does not work with file store
-        if tracking_url_type_store != "file":
+        # Log the model with a signature that defines the schema of the model's inputs and outputs. 
+        # When the model is deployed, this signature will be used to validate inputs.
+        # signature = mlflow.models.signature.infer_signature(X_train_bow, wrappedModel.predict(None, X_train_bow))
 
-            # Register the model
-            # There are other ways to use the Model Registry, which depends on the use case,
-            # please refer to the doc for more information:
-            # https://mlflow.org/docs/latest/model-registry.html#api-workflow
-            mlflow.sklearn.log_model(clf, "model", registered_model_name="Naive-Bayes_en")
-        else:
-            mlflow.sklearn.log_model(clf, "model")
+        mlflow.pyfunc.log_model("Naive-Bayes_model", python_model=wrappedModel)  #  , signature=signature)
